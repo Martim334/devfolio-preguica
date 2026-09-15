@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Novo Projeto</title>
+</head>
+<body>
+  <h2>Adicionar Novo Projeto</h2>
+<form id="projectForm">
+  <div>
+    <label for="projectTitle">Título *</label><br />
+    <input type="text" id="projectTitle" required />
+  </div>
+  <br />
+  <div>
+    <label for="projectDescription">Descrição</label><br />
+    <textarea id="projectDescription"></textarea>
+  </div>
+  <br />
+  <div>
+    <label for="projectGithub">URL do GitHub</label><br />
+    <input type="url" id="projectGithub" />
+  </div>
+  <br />
+  <div>
+    <label for="projectDeploy">URL da Demo / Deploy</label><br />
+    <input type="url" id="projectDeploy" />
+  </div>
+  <br />
+  <!-- O type="submit" garante que o evento dispara -->
+  <button type="submit" id="btnSubmit">Guardar Projeto</button>
+</form>
+  <br/>
+  <a href="/dashboard/projects.html">Voltar aos Projetos</a>
+<script src="/js/projects.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import authRoutes from './db/routes/auth.js';
+import projectsRouter from './db/routes/projects.js';
+
+dotenv.config();
+
+const app = express();
+const PORT = 3001;
+
+// 1. Middlewares (DEVEM FICAR NO TOPO)
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+// 2. Rotas da API
+app.use('/api/auth', authRoutes);
+app.use('/api/projects', projectsRouter); // ✅ COLOCAR AQUI!
+
+// 3. Arrancar o Servidor (DEVE SER A ÚLTIMA COISA)
+app.listen(PORT, () => {
+  console.log(`Servidor a rodar na porta ${PORT}`);
+});

@@ -1,0 +1,22 @@
+<!-- Formulário para Criar Projeto -->
+<form id="projectForm">
+  <h3>Adicionar Novo Projeto</h3>
+  
+  <input type="text" id="projectTitle" placeholder="Título do Projeto *" required />
+  <textarea id="projectDescription" placeholder="Descrição do Projeto"></textarea>
+  <input type="url" id="projectGithub" placeholder="URL do GitHub (https://...)" />
+  <input type="url" id="projectDeploy" placeholder="URL da Demo / Deploy (https://...)" />
+  
+  <button type="submit">Guardar Projeto</button>
+</form>
+
+<hr />
+
+<!-- Contentor onde os projetos vão aparecer -->
+<h2>Os Meus Projetos</h2>
+<div id="projectsContainer">
+  <p>A carregar projetos...</p>
+</div>
+
+<!-- Importar o script JS -->
+<script src="/js/projects.js"></script>

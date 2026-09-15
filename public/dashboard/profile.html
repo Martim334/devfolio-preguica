@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Perfil — DevPortfolio</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header>
+    <h1>DevPortfolio — Editar Perfil</h1>
+    <nav>
+      <a href="index.html">Painel</a>
+      <a href="projects.html">Meus Projetos</a>
+      <a href="profile.html">Perfil</a>
+      <button id="logoutBtn">Sair</button>
+      <button onclick="trocarTema()">🌓 Tema</button>
+    </nav>
+  </header>
+
+  <main class="login-container">
+    <h2>Definições de Conta</h2>
+
+    <div id="profileMessage" class="message hidden"></div>
+
+    <form id="profileForm">
+      <div class="form-group">
+        <label for="profileName">Nome Completo</label>
+        <input type="text" id="profileName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="profileBio">Biografia</label>
+        <textarea id="profileBio" rows="3"></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary">Guardar Alterações</button>
+    </form>
+
+    <hr style="margin: 30px 0;">
+
+    <h3>Alterar Password</h3>
+    <form id="changePasswordForm">
+      <div class="form-group">
+        <label for="currentPassword">Password Atual</label>
+        <input type="password" id="currentPassword" required>
+      </div>
+
+      <div class="form-group">
+        <label for="newPassword">Nova Password</label>
+        <input type="password" id="newPassword" required minlength="6">
+      </div>
+
+      <button type="submit" class="btn-secondary">Atualizar Password</button>
+    </form>
+  </main>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      window.location.href = '../login.html';
+    } else {
+      document.getElementById('profileName').value = user.name || '';
+      document.getElementById('profileBio').value = user.bio || '';
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('user');
+      window.location.href = '../login.html';
+    });
+  </script>
+</body>
+</html>
