@@ -1,7 +1,7 @@
-// 1. Identificar utilizador logado (garante que fica '1' e não '1.0')
-      const storedUser = JSON.parse(localStorage.getItem('user'));
-      let rawId = storedUser ? (storedUser.id || storedUser.user_id) : 1;
-      const userId = String(rawId).split('.')[0];
+// 1. Identificar utilizador logado (garante formato '1' em vez de '1.0')
+const storedUser = JSON.parse(localStorage.getItem('user'));
+let rawId = storedUser ? (storedUser.id || storedUser.user_id) : 1;
+const userId = String(rawId).split('.')[0]; 
 
 // 2. Carregar e listar os projetos no Dashboard
 async function loadProjects() {
@@ -17,7 +17,8 @@ async function loadProjects() {
       container.innerHTML = projectsList.map(project => {
         const title = project.title || 'Sem título';
         const desc = project.description || 'Sem descrição.';
-        const img = project.image_url || '';
+        // Aceita tanto image_url como image
+        const img = project.image_url || project.image || ''; 
 
         return `
           <div class="project-card" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
