@@ -35,8 +35,9 @@ async function loadProjects() {
   }
 }
 
-// 3. Adicionar novo projeto / desenho
+// 3. Adicionar novo projeto / desenho com mensagens de erro detalhadas
 const projectForm = document.getElementById('projectForm');
+
 if (projectForm) {
   projectForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -49,21 +50,25 @@ if (projectForm) {
       const res = await fetch('/api/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, description, image_url, user_id: userId })
+        body: JSON.stringify({ 
+          title, 
+          description, 
+          image_url, 
+          user_id: userId 
+        })
       });
 
       const data = await res.json();
 
       if (res.ok && data.success) {
         alert('Desenho adicionado com sucesso!');
-        projectForm.reset();
-        loadProjects();
+        window.location.href = '/dashboard/projects.html';
       } else {
-        alert(data.message || 'Erro ao guardar.');
+        alert('Erro do Servidor: ' + (data.message || `Status ${res.status}`));
       }
     } catch (err) {
       console.error('Erro ao guardar:', err);
-      alert('Erro de ligação ao servidor.');
+      alert('Erro de conexão: ' + err.message);
     }
   });
 }
