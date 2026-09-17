@@ -26,4 +26,30 @@ async function loadProjects() {
   }
 }
 
+async function loadPublicProjects() {
+  const container = document.getElementById('projectsContainer');
+  if (!container) return;
+
+  try {
+    const response = await fetch('/api/projects');
+    const projects = await response.json();
+
+    if (!Array.isArray(projects) || projects.length === 0) {
+      container.innerHTML = '<p>Nenhum projeto adicionado ainda.</p>';
+      return;
+    }
+
+    container.innerHTML = projects.map(project => `
+      <div class="project-card">
+        <h3>${project.title}</h3>
+        <p>${project.description || ''}</p>
+        ${project.github_url ? `<a href="${project.github_url}" target="_blank">Ver no GitHub</a>` : ''}
+      </div>
+    `).join('');
+  } catch (err) {
+    console.error('Erro ao carregar projetos:', err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadPublicProjects);
 loadProjects();
