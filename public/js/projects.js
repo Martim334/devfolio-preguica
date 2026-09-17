@@ -8,7 +8,7 @@ async function loadProjects() {
   if (!container) return;
 
   try {
-    const res = await fetch(`/api/projects?user_id=${userId}`);
+    const res = await fetch(`/.netlify/functions/api/projects?user_id=${userId}`);
     const data = await res.json();
     const projectsList = Array.isArray(data) ? data : (data.projects || []);
 
@@ -35,7 +35,7 @@ async function loadProjects() {
   }
 }
 
-// 3. Adicionar novo projeto / desenho com mensagens de erro detalhadas
+// 3. Adicionar novo projeto / desenho
 const projectForm = document.getElementById('projectForm');
 
 if (projectForm) {
@@ -47,7 +47,8 @@ if (projectForm) {
     const image_url = document.getElementById('image_url')?.value;
 
     try {
-      const res = await fetch('/api/projects', {
+      // Endpoint corrigido para as Netlify Functions
+      const res = await fetch('/.netlify/functions/api/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -78,7 +79,7 @@ async function deleteProject(id) {
   if (!confirm('Tem a certeza que quer apagar este projeto?')) return;
 
   try {
-    const res = await fetch(`/api/projects/${id}`, { method: 'DELETE' });
+    const res = await fetch(`/.netlify/functions/api/projects/${id}`, { method: 'DELETE' });
     const data = await res.json();
 
     if (res.ok && data.success) {
