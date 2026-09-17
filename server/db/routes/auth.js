@@ -9,12 +9,11 @@ const router = express.Router();
 // ROTA DE REGISTO (POST /api/auth/register)
 // ==========================================
 router.post('/register', async (req, res) => {
-  const { name, email, password, bio } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Tenta inserir apenas name, email e password primeiro
     await db.execute({
       sql: 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
       args: [name, email, hashedPassword]
@@ -28,11 +27,9 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Este email já está registado.' });
     }
 
-    // Retorna a mensagem de erro exata da Turso/SQL para sabermos o motivo
     return res.status(500).json({ success: false, message: error.message });
   }
 });
-
 // ===============================================
 // ROTA DE LOGIN (POST /api/auth/login)
 // ===============================================

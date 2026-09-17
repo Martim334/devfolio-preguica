@@ -37,38 +37,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 2. FORMULÁRIO DE REGISTO
   // ==========================================
-  
-  const registerForm = document.getElementById('registerForm');
+ const registerForm = document.getElementById('registerForm');
 
-  if (registerForm) {
-    registerForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+if (registerForm) {
+  registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      const name = document.getElementById('name')?.value || '';
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+    const name = document.getElementById('name')?.value;
+    const email = document.getElementById('email')?.value;
+    const password = document.getElementById('password')?.value;
+    const bio = document.getElementById('bio')?.value || '';
 
-      try {
-        // Dentro do evento de submit do formulário de registo em public/js/auth.js:
-        const response = await fetch('/api/auth/register', {
-          method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({ name, email, password, bio })
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password, bio })
       });
 
       const data = await response.json();
 
-  if (response.ok && data.success) {
-      alert('Conta criada com sucesso!');
-       window.location.href = '/login.html';
-  } else {
-      // Mostra o erro exato vindo do servidor
-       alert(data.message || 'Erro ao criar conta.');
-  }
-      } catch (err) {
-        console.error('Erro no registo:', err);
-        alert('Erro ao ligar ao servidor.');
+      if (response.ok && data.success) {
+        alert('Conta criada com sucesso!');
+        window.location.href = '/login.html';
+      } else {
+        alert(data.message || 'Erro ao processar registo.');
       }
-    });
-  }
+    } catch (err) {
+      console.error('Erro na requisição:', err);
+      alert('Erro de conexão com o servidor: ' + err.message);
+    }
+  });
+}
 });
