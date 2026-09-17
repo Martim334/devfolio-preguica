@@ -1,15 +1,15 @@
 console.log('DevPortfolio JS Carregado!');
-app.use(express.static('public'));
-
 
 // 1. Carregar Projetos da API
 async function loadProjects() {
   const container = document.getElementById('projectsContainer');
+  if (!container) return; // Proteção se não estiver na página de projetos
+
   try {
     const response = await fetch('/api/projects');
     const projects = await response.json();
 
-    if (projects.length === 0) {
+    if (!Array.isArray(projects) || projects.length === 0) {
       container.innerHTML = '<p>Nenhum projeto encontrado.</p>';
       return;
     }
@@ -25,5 +25,5 @@ async function loadProjects() {
     container.innerHTML = '<p>Erro ao carregar projetos.</p>';
   }
 }
-    
+
 loadProjects();
