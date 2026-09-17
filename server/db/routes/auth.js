@@ -1,4 +1,5 @@
 import express from 'express';
+
 import bcrypt from 'bcryptjs';
 import { db } from '../server/connection.js';
 
@@ -10,29 +11,22 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
   const { name, email, password, bio } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ success: false, message: 'Preencha todos os campos obrigatórios.' });
-  }
-
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await db.execute({
       sql: 'INSERT INTO users (name, email, password, bio) VALUES (?, ?, ?, ?)',
-      args: [
-        name ? String(name).trim() : '',
-        String(email).trim().toLowerCase(),
-        hashedPassword,
-        bio ? String(bio).trim() : ''
-      ]
+      args: [name, email, hashedPassword, bio || '']
     });
 
     return res.status(201).json({ success: true, message: 'Utilizador criado com sucesso!' });
   } catch (error) {
     console.error('Erro no registo:', error);
+
     if (error.message && error.message.includes('UNIQUE constraint failed')) {
       return res.status(400).json({ success: false, message: 'Este email já está registado.' });
     }
+
     return res.status(500).json({ success: false, message: error.message });
   }
 });
