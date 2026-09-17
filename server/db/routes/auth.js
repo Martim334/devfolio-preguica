@@ -23,11 +23,14 @@ router.post('/register', async (req, res) => {
   } catch (error) {
     console.error('Erro no registo:', error);
 
-    if (error.message && error.message.includes('UNIQUE constraint failed')) {
+    // Extrai o texto do erro garantindo que nunca vai vazio
+    const errorMessage = error?.message || String(error) || 'Erro desconhecido na base de dados';
+
+    if (errorMessage.includes('UNIQUE constraint failed')) {
       return res.status(400).json({ success: false, message: 'Este email já está registado.' });
     }
 
-    return res.status(500).json({ success: false, message: error.message });
+    return res.status(500).json({ success: false, message: errorMessage });
   }
 });
 // ===============================================

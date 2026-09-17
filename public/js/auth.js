@@ -61,7 +61,7 @@ if (registerForm) {
         alert('Conta criada com sucesso!');
         window.location.href = '/login.html';
       } else {
-        alert(data.message || 'Erro ao processar registo.');
+          alert(data.message || `Erro do servidor (Status ${response.status})`);
       }
     } catch (err) {
       console.error('Erro na requisição:', err);
