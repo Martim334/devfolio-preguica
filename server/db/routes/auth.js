@@ -14,9 +14,10 @@ router.post('/register', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Tenta inserir apenas name, email e password primeiro
     await db.execute({
-      sql: 'INSERT INTO users (name, email, password, bio) VALUES (?, ?, ?, ?)',
-      args: [name, email, hashedPassword, bio || '']
+      sql: 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+      args: [name, email, hashedPassword]
     });
 
     return res.status(201).json({ success: true, message: 'Utilizador criado com sucesso!' });
@@ -27,6 +28,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Este email já está registado.' });
     }
 
+    // Retorna a mensagem de erro exata da Turso/SQL para sabermos o motivo
     return res.status(500).json({ success: false, message: error.message });
   }
 });

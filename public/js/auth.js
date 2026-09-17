@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 2. FORMULÁRIO DE REGISTO
   // ==========================================
+  
   const registerForm = document.getElementById('registerForm');
 
   if (registerForm) {
@@ -48,20 +49,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const password = document.getElementById('password').value;
 
       try {
+        // Dentro do evento de submit do formulário de registo em public/js/auth.js:
         const response = await fetch('/api/auth/register', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, password })
-        });
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({ name, email, password, bio })
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (response.ok && data.success) {
-          alert('Conta criada com sucesso! A redirecionar para o login...');
-          window.location.href = 'login.html';
-        } else {
-          alert(data.message || 'Erro ao criar conta.');
-        }
+  if (response.ok && data.success) {
+      alert('Conta criada com sucesso!');
+       window.location.href = '/login.html';
+  } else {
+      // Mostra o erro exato vindo do servidor
+       alert(data.message || 'Erro ao criar conta.');
+  }
       } catch (err) {
         console.error('Erro no registo:', err);
         alert('Erro ao ligar ao servidor.');
