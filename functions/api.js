@@ -2,15 +2,16 @@ const serverless = require('serverless-http');
 const express = require('express');
 const cors = require('cors');
 
-// Importa as tuas rotas atuais do servidor
-const authRoutes = require('../server/routes/auth');
-const projectsRoutes = require('../server/routes/projects');
+// Caminhos exatos conforme a estrutura das tuas pastas (server/db/routes/...)
+const authRoutes = require('../server/db/routes/auth.js');
+const projectsRoutes = require('../server/db/routes/projects.js');
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Liga as rotas à função do Netlify
+// Suporte para chamadas com ou sem o prefixo da função
 app.use('/.netlify/functions/api/auth', authRoutes);
 app.use('/.netlify/functions/api/projects', projectsRoutes);
 app.use('/api/auth', authRoutes);
