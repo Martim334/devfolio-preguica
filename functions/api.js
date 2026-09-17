@@ -3,9 +3,8 @@ const express = require('express');
 const cors = require('cors');
 
 // Importa as tuas rotas atuais do servidor
-const authRoutes = require('../server/db/routes/auth');
-const projectsRoutes = require('../server/db/routes/projects');
-
+const authRoutes = require('../server/routes/auth');
+const projectsRoutes = require('../server/routes/projects');
 const app = express();
 
 app.use(cors());
