@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
 // ===============================================
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const { title, description, github_url, deploy_url, image_url } = req.body;
+  const { title, description, image_url } = req.body;
 
   if (!title) {
     return res.status(400).json({ success: false, message: 'O título é obrigatório.' });
@@ -70,13 +70,11 @@ router.put('/:id', async (req, res) => {
   try {
     await db.execute({
       sql: `UPDATE projects 
-            SET title = ?, description = ?, github_url = ?, deploy_url = ?, image_url = ? 
+            SET title = ?, description = ?, image_url = ? 
             WHERE id = ?`,
       args: [
         title.trim(),
         description ? description.trim() : '',
-        github_url ? github_url.trim() : '',
-        deploy_url ? deploy_url.trim() : '',
         image_url ? image_url.trim() : '',
         id
       ]
@@ -87,6 +85,7 @@ router.put('/:id', async (req, res) => {
     console.error('Erro ao atualizar projeto:', error);
     return res.status(500).json({ success: false, message: error.message });
   }
+});z\
 });
 
 // ===============================================
