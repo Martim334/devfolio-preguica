@@ -1,13 +1,6 @@
-import { createClient } from '@libsql/client';
-
-const url = process.env.TURSO_DATABASE_URL;
-const authToken = process.env.TURSO_AUTH_TOKEN;
-
-if (!url || !authToken) {
-  console.error('ERRO CRÍTICO: Variáveis do Turso em falta no Netlify!');
-}
+import { createClient } from '@libsql/client/http';
 
 export const db = createClient({
-  url: url || '',
-  authToken: authToken || '',
+  url: process.env.TURSO_DATABASE_URL || '',
+  authToken: process.env.TURSO_AUTH_TOKEN || '',
 });
