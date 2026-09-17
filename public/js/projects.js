@@ -42,7 +42,7 @@ if (projectForm) {
     e.preventDefault();
 
     const title = document.getElementById('projectTitle')?.value;
-    const description = document.getElementById('projectDescription')?.value;
+    const description = document.getElementById('description')?.value;
     const image_url = document.getElementById('image_url')?.value;
 
     try {

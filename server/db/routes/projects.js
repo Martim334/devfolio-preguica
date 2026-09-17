@@ -77,19 +77,16 @@ router.put('/:id', async (req, res) => {
         description ? description.trim() : '',
         image_url ? image_url.trim() : '',
         id
-      ]
-    });
-
-    return res.status(200).json({ success: true, message: 'Projeto atualizado com sucesso!' });
+return res.status(200).json({ success: true, message: 'Projeto atualizado com sucesso!' });
   } catch (error) {
     console.error('Erro ao atualizar projeto:', error);
     return res.status(500).json({ success: false, message: error.message });
   }
 });
-
 // ===============================================
 // 4. DELETE: Apagar projeto (DELETE /api/projects/:id)
 // ===============================================
+
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -98,6 +95,15 @@ router.delete('/:id', async (req, res) => {
       sql: 'DELETE FROM projects WHERE id = ?',
       args: [id]
     });
+
+    return res.status(200).json({ success: true, message: 'Projeto apagado com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao apagar projeto:', error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+export default router;
 
     return res.status(200).json({ success: true, message: 'Projeto removido com sucesso!' });
   } catch (error) {
