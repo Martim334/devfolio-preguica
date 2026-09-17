@@ -41,7 +41,7 @@ if (projectForm) {
   projectForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const title = document.getElementById('projectTitle')?.value;
+    const title = document.getElementById('title')?.value;
     const description = document.getElementById('description')?.value;
     const image_url = document.getElementById('image_url')?.value;
 

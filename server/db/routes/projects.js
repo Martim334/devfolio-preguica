@@ -1,22 +1,26 @@
 import express from 'express';
-import { db } from '../server/connection.js';
+import { db } from '../../connection.js';
+
 const router = express.Router();
 
 // ===============================================
-// 1. READ: Listar projetos (GET /api/projects?user_id=1)
+// 1. READ: Listar projetos/desenhos
+// Exemplo: GET /api/projects ou GET /api/projects?user_id=1
 // ===============================================
 router.get('/', async (req, res) => {
   const { user_id } = req.query;
 
-  if (!user_id) {
-    return res.status(400).json({ success: false, message: 'ID do utilizador é obrigatório.' });
-  }
-
   try {
-    const result = await db.execute({
-      sql: 'SELECT * FROM projects WHERE user_id = ? ORDER BY created_at DESC',
-      args: [user_id]
-    });
+    let result;
+    if (user_id) {
+      result = await db.execute({
+        sql: 'SELECT * FROM projects WHERE user_id = ? ORDER BY id DESC',
+        args: [user_id]
+      });
+    } else {
+      // Leitura pública (para a homepage)
+      result = await db.execute('SELECT * FROM projects ORDER BY id DESC');
+    }
 
     return res.status(200).json({
       success: true,
@@ -24,35 +28,35 @@ router.get('/', async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao procurar projetos:', error);
-    return res.status(500).json({ success: false, message: error.message });
+    return res.status(500).json({ success: false, message: error.message || String(error) });
   }
 });
 
 // ===============================================
-// 2. CREATE: Adicionar novo projeto (POST /api/projects)
+// 2. CREATE: Adicionar novo desenho (POST /api/projects)
 // ===============================================
-// READ: Listar projetos do utilizador
-router.get('/', async (req, res) => {
-  const { user_id } = req.query;
+router.post('/', async (req, res) => {
+  const { title, description, image_url, user_id } = req.body;
 
-  if (!user_id) {
-    return res.status(400).json({ success: false, message: 'ID do utilizador é obrigatório.' });
+  if (!title) {
+    return res.status(400).json({ success: false, message: 'O título é obrigatório.' });
   }
 
   try {
-    const result = await db.execute({
-      // ⚠️ Corrigido de created_at para createdAt:
-      sql: 'SELECT * FROM projects WHERE user_id = ? ORDER BY createdAt DESC',
-      args: [user_id]
+    await db.execute({
+      sql: 'INSERT INTO projects (title, description, image_url, user_id) VALUES (?, ?, ?, ?)',
+      args: [
+        title.trim(),
+        description ? description.trim() : '',
+        image_url ? image_url.trim() : '',
+        user_id || 1
+      ]
     });
 
-    return res.status(200).json({
-      success: true,
-      projects: result.rows
-    });
+    return res.status(201).json({ success: true, message: 'Desenho guardado com sucesso!' });
   } catch (error) {
-    console.error('Erro ao procurar projetos:', error);
-    return res.status(500).json({ success: false, message: error.message });
+    console.error('Erro ao inserir projeto:', error);
+    return res.status(500).json({ success: false, message: error.message || String(error) });
   }
 });
 
@@ -77,16 +81,19 @@ router.put('/:id', async (req, res) => {
         description ? description.trim() : '',
         image_url ? image_url.trim() : '',
         id
-return res.status(200).json({ success: true, message: 'Projeto atualizado com sucesso!' });
+      ]
+    });
+
+    return res.status(200).json({ success: true, message: 'Projeto atualizado com sucesso!' });
   } catch (error) {
     console.error('Erro ao atualizar projeto:', error);
-    return res.status(500).json({ success: false, message: error.message });
+    return res.status(500).json({ success: false, message: error.message || String(error) });
   }
 });
+
 // ===============================================
 // 4. DELETE: Apagar projeto (DELETE /api/projects/:id)
 // ===============================================
-
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -99,16 +106,7 @@ router.delete('/:id', async (req, res) => {
     return res.status(200).json({ success: true, message: 'Projeto apagado com sucesso!' });
   } catch (error) {
     console.error('Erro ao apagar projeto:', error);
-    return res.status(500).json({ success: false, message: error.message });
-  }
-});
-
-export default router;
-
-    return res.status(200).json({ success: true, message: 'Projeto removido com sucesso!' });
-  } catch (error) {
-    console.error('Erro ao apagar projeto:', error);
-    return res.status(500).json({ success: false, message: error.message });
+    return res.status(500).json({ success: false, message: error.message || String(error) });
   }
 });
 
