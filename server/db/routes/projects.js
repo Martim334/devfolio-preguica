@@ -3,10 +3,7 @@ import { db } from '../../connection.js';
 
 const router = express.Router();
 
-// ===============================================
-// 1. READ: Listar projetos/desenhos
-// Exemplo: GET /api/projects ou GET /api/projects?user_id=1
-// ===============================================
+// 1. READ: Listar projetos
 router.get('/', async (req, res) => {
   const { user_id } = req.query;
 
@@ -18,7 +15,6 @@ router.get('/', async (req, res) => {
         args: [user_id]
       });
     } else {
-      // Leitura pública (para a homepage)
       result = await db.execute('SELECT * FROM projects ORDER BY id DESC');
     }
 
@@ -32,9 +28,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ===============================================
-// 2. CREATE: Adicionar novo desenho (POST /api/projects)
-// ===============================================
+// 2. CREATE: Adicionar novo desenho
 router.post('/', async (req, res) => {
   const { title, description, image_url, user_id } = req.body;
 
@@ -60,9 +54,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ===============================================
-// 3. UPDATE: Editar projeto (PUT /api/projects/:id)
-// ===============================================
+// 3. UPDATE: Editar projeto
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { title, description, image_url } = req.body;
@@ -73,9 +65,7 @@ router.put('/:id', async (req, res) => {
 
   try {
     await db.execute({
-      sql: `UPDATE projects 
-            SET title = ?, description = ?, image_url = ? 
-            WHERE id = ?`,
+      sql: 'UPDATE projects SET title = ?, description = ?, image_url = ? WHERE id = ?',
       args: [
         title.trim(),
         description ? description.trim() : '',
@@ -91,9 +81,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// ===============================================
-// 4. DELETE: Apagar projeto (DELETE /api/projects/:id)
-// ===============================================
+// 4. DELETE: Apagar projeto
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
