@@ -17,12 +17,11 @@ async function loadProjects() {
       container.innerHTML = projectsList.map(project => {
         const title = project.title || 'Sem título';
         const desc = project.description || 'Sem descrição.';
-        // Corrigido para ler image_Url da base de dados
         const img = project.image_Url || project.image_url || project.image || ''; 
 
         return `
           <div class="project-card" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
-            ${img ? `<img src="${img}" alt="${title}" style="max-width: 200px; display: block; margin-bottom: 10px; border-radius: 4px;">` : ''}
+            ${img ? `<img src="${img}" alt="${title}" style="max-width: 200px; display: block; margin-bottom: 10px; border-radius: 4px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/200?text=Imagem+Nao+Encontrada';">` : ''}
             <h3>${title}</h3>
             <p>${desc}</p>
             <button onclick="deleteProject(${project.id})">Apagar</button>
