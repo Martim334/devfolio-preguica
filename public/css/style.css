@@ -1,122 +1,147 @@
-/* Variáveis CSS para Suporte de Tema Light / Dark */
+/* Reset & Configurações Globais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --bg-color: #f8fafc;
-  --text-color: #0f172a;
   --card-bg: #ffffff;
-  --primary-color: #2563eb;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --border: #e2e8f0;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
 }
 
-/* Cor padrão (Modo Claro) */
-body {
-  background-color: #ffffff;
-  color: #000000;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* Quando tem a classe 'dark' (Modo Escuro) */
 body.dark {
-  background-color: #0f172a;
-  color: #ffffff;
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
-
 
 body {
   background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  padding: 0 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
+main, header {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 10px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
 }
 
+header h1, header .logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.5px;
+}
+
+/* Menu de Navegação */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+/* Botão de Tema */
+nav button, .btn-theme {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+nav button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Título de Seção */
+h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Grid de Projetos */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
 }
 
 .project-card {
   background-color: var(--card-bg);
-  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Mensagens de Feedback */
+.message, .error-message {
+  padding: 16px 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-
-
-  /* --- Estilos do Formulário de Login --- */
-.login-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: var(--card-bg, #f8fafc);
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+  margin-top: 20px;
 }
 
-body.dark .login-container {
-  background-color: #1e293b;
+.message.error, .error-message {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
 }
 
-.form-group {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-.form-group input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.btn-primary {
-  width: 100%;
-  padding: 12px;
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.btn-primary:hover {
-  background-color: #1d4ed8;
-}
-
-.message {
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.message.error {
-  background-color: #f87171;
-  color: white;
-}
-
-.message.success {
-  background-color: #4ade80;
-  color: #064e3b;
+body.dark .message.error {
+  background-color: #450a0a;
+  color: #fca5a5;
+  border-color: #7f1d1d;
 }
 
 .hidden {
   display: none;
-}
 }
