@@ -85,7 +85,6 @@ router.put('/:id', async (req, res) => {
     console.error('Erro ao atualizar projeto:', error);
     return res.status(500).json({ success: false, message: error.message });
   }
-});z\
 });
 
 // ===============================================

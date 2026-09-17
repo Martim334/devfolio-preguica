@@ -2,38 +2,81 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Novo Projeto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novo Desenho - DevPortfolio</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .form-container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 24px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-family: sans-serif;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .btn-submit {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn-submit:hover {
+      background-color: #1d4ed8;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 15px;
+      color: #2563eb;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <h2>Adicionar Novo Projeto</h2>
-<form id="projectForm">
-  <div>
-    <label for="projectTitle">Título *</label><br />
-    <input type="text" id="projectTitle" required />
-  </div>
-  <br />
-  <div>
-    <label for="projectDescription">Descrição</label><br />
-    <textarea id="projectDescription"></textarea>
-  </div>
-  <br />
-  <div>
-    <label for="projectGithub">URL do GitHub</label><br />
-    <input type="url" id="projectGithub" />
-  </div>
-  <br />
-  <div>
-    <label for="projectDeploy">URL da Demo / Deploy</label><br />
-    <input type="url" id="projectDeploy" />
-  </div>
-  <br />
-  <!-- O type="submit" garante que o evento dispara -->
-  <button type="submit" id="btnSubmit">Guardar Projeto</button>
-</form>
-  <br/>
-  <a href="/dashboard/projects.html">Voltar aos Projetos</a>
-<script src="/js/projects.js"></script>
 
+  <div class="form-container">
+    <h2>Adicionar Novo Desenho</h2>
+    
+    <form id="projectForm">
+      <div class="form-group">
+        <label for="title">Título do Desenho *</label>
+        <input type="text" id="title" placeholder="Ex: Ilustração Fantasia" required>
+      </div>
 
+      <div class="form-group">
+        <label for="description">Descrição</label>
+        <textarea id="description" rows="3" placeholder="Detalhes sobre a arte, materiais ou conceito..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="image_url">URL da Imagem *</label>
+        <input type="url" id="image_url" placeholder="https://exemplo.com/imagem.png" required>
+      </div>
+
+      <button type="submit" class="btn-submit">Guardar Desenho</button>
+    </form>
+
+    <a href="/dashboard/projects.html" class="back-link">← Voltar aos Projetos</a>
+  </div>
+
+  <script src="/js/projects.js"></script>
 </body>
 </html>
