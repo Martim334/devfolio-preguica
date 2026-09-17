@@ -1,6 +1,7 @@
-// 1. Identificar utilizador logado
-const storedUser = JSON.parse(localStorage.getItem('user'));
-const userId = storedUser ? (storedUser.id || storedUser.user_id) : 1;
+// 1. Identificar utilizador logado (garante que fica '1' e não '1.0')
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      let rawId = storedUser ? (storedUser.id || storedUser.user_id) : 1;
+      const userId = String(rawId).split('.')[0];
 
 // 2. Carregar e listar os projetos no Dashboard
 async function loadProjects() {
