@@ -1,10 +1,13 @@
 import { createClient } from '@libsql/client';
-import dotenv from 'dotenv';
 
-dotenv.config();
+const url = process.env.TURSO_DATABASE_URL;
+const authToken = process.env.TURSO_AUTH_TOKEN;
 
-// Força a utilização limpa do protocolo da Turso
+if (!url || !authToken) {
+  console.error('ERRO CRÍTICO: Variáveis do Turso em falta no Netlify!');
+}
+
 export const db = createClient({
-  url: process.env.TURSO_DATABASE_URL,
-  authToken: process.env.TURSO_AUTH_TOKEN
+  url: url || '',
+  authToken: authToken || '',
 });

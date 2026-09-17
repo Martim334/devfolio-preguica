@@ -9,11 +9,16 @@ const router = express.Router();
 // ROTA DE REGISTO (POST /api/auth/register)
 // ==========================================
 router.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
-
   try {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ success: false, message: 'Preenche todos os campos obrigatórios.' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Tenta a inserção na Turso
     await db.execute({
       sql: 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
       args: [name, email, hashedPassword]
@@ -21,16 +26,12 @@ router.post('/register', async (req, res) => {
 
     return res.status(201).json({ success: true, message: 'Utilizador criado com sucesso!' });
   } catch (error) {
-    console.error('Erro no registo:', error);
-
-    // Extrai o texto do erro garantindo que nunca vai vazio
-    const errorMessage = error?.message || String(error) || 'Erro desconhecido na base de dados';
-
-    if (errorMessage.includes('UNIQUE constraint failed')) {
-      return res.status(400).json({ success: false, message: 'Este email já está registado.' });
-    }
-
-    return res.status(500).json({ success: false, message: errorMessage });
+    console.error('Falha interna no registo:', error);
+    // Devolve o erro como JSON para impedir o crash 502
+    return res.status(500).json({ 
+      success: false, 
+      message: `Erro na BD/Servidor: ${error.message || String(error)}` 
+    });
   }
 });
 // ===============================================
