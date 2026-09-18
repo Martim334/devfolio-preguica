@@ -1,147 +1,80 @@
-/* Reset & Configurações Globais */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-:root {
-  --bg-color: #f8fafc;
-  --card-bg: #ffffff;
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --border: #e2e8f0;
-  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-}
-
-body.dark {
-  --bg-color: #0f172a;
-  --card-bg: #1e293b;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --border: #334155;
-  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-primary);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  min-height: 100vh;
-  padding: 0 20px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-
-main, header {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* Cabeçalho */
-header {
+/* --- Formulários de Autenticação (Login e Registo) --- */
+.auth-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 32px;
+  min-height: 80vh;
+  padding: 20px;
 }
 
-header h1, header .logo {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--primary);
-  letter-spacing: -0.5px;
-}
-
-/* Menu de Navegação */
-nav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-nav a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: color 0.2s ease;
-}
-
-nav a:hover {
-  color: var(--primary);
-}
-
-/* Botão de Tema */
-nav button, .btn-theme {
-  background-color: var(--card-bg);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  padding: 8px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow);
-}
-
-nav button:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-/* Título de Seção */
-h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-/* Grid de Projetos */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-}
-
-.project-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border);
+.auth-card {
+  background: var(--card-bg);
+  padding: 30px;
   border-radius: 12px;
-  padding: 24px;
   box-shadow: var(--shadow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid var(--border);
 }
 
-.project-card:hover {
-  transform: translateY(-4px);
+.auth-card h2 {
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  text-align: center;
 }
 
-/* Mensagens de Feedback */
-.message, .error-message {
-  padding: 16px 20px;
-  border-radius: 8px;
-  font-weight: 500;
-  margin-top: 20px;
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
-.message.error, .error-message {
-  background-color: #fef2f2;
-  color: #991b1b;
-  border: 1px solid #fecaca;
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--text-secondary);
 }
 
-body.dark .message.error {
-  background-color: #450a0a;
-  color: #fca5a5;
-  border-color: #7f1d1d;
+.form-group input {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-color);
+  color: var(--text-primary);
+  border-radius: 6px;
+  font-size: 14px;
 }
 
-.hidden {
-  display: none;
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.auth-footer a {
+  color: var(--primary);
+  text-decoration: none;
 }

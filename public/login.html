@@ -1,55 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login — DevPortfolio</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-  <header>
-    <h1>DevPortfolio</h1>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="register.html">Registo</a>
-      <button onclick="document.body.classList.toggle('dark')"> 🌓</button>
-    </nav>
-  </header>
-
-  <main class="login-container">
-    <h2>Área de Autenticação</h2>
-    
-    <!-- Mensagem de erro/sucesso -->
-    <div id="authMessage" class="message hidden"></div>
-
-    <form id="loginForm" action="javascript:void(0);">
+<main class="auth-container">
+  <div class="auth-card">
+    <h2>Iniciar Sessão</h2>
+    <form id="loginForm">
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" required placeholder="formador@formador.com">
+        <label for="email">E-mail *</label>
+        <input type="email" id="email" required placeholder="seuemail@exemplo.com">
       </div>
-
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">Palavra-passe *</label>
         <input type="password" id="password" required placeholder="••••••••">
       </div>
-
       <button type="submit" class="btn-primary">Entrar</button>
     </form>
-  </main>
-
-
-<script src="js/theme.js"></script>
-<script src="js/api.js"></script>
-<script src="js/auth.js"></script>
-<script>
-if (response.ok && data.success) {
-  // Guarda os dados do utilizador no browser
-  localStorage.setItem('user', JSON.stringify(data.user)); 
-  
-  alert('Login efetuado!');
-  window.location.href = '/dashboard/projects.html'; // Redireciona para os projetos
-}
-</script>
-</body>
-</html>
+    <p class="auth-footer">Ainda não tem conta? <a href="/register.html">Registar</a></p>
+  </div>
+</main>
