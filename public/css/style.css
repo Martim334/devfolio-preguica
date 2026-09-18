@@ -1,158 +1,147 @@
-/* Reset básico e tipografia */
+/* Reset & Configurações Globais */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --border: #e2e8f0;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+body.dark {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
 body {
-    background-color: #f8fafc;
-    color: #0f172a;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  padding: 0 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 2rem;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
+
+main, header {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.logo {
-    font-size: 1.35rem;
-    font-weight: 800;
-    color: #2563eb;
-    text-decoration: none;
+/* Cabeçalho */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
 }
 
-.nav-links {
-    display: flex;
-    gap: 1.25rem;
-    align-items: center;
+header h1, header .logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.5px;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: #64748b;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: color 0.2s ease;
+/* Menu de Navegação */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.nav-links a:hover {
-    color: #1e293b;
+nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
 }
 
-/* Contentor Centralizado */
-.form-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 1rem;
+nav a:hover {
+  color: var(--primary);
 }
 
-/* Cartão do Formulário (Estilo igual ao de Adicionar Desenho) */
-.form-card {
-    background-color: #ffffff;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    border: 1px solid #e2e8f0;
-    width: 100%;
-    max-width: 480px;
+/* Botão de Tema */
+nav button, .btn-theme {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
 }
 
-.form-card h2 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 1.75rem;
+nav button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
-/* Grupos de Inputs */
-.form-group {
-    margin-bottom: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+/* Título de Seção */
+h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
 
-.form-group label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #1e293b;
+/* Grid de Projetos */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.75rem 0.9rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    color: #0f172a;
-    background-color: #ffffff;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+.project-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-    font-family: inherit;
+.project-card:hover {
+  transform: translateY(-4px);
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+/* Mensagens de Feedback */
+.message, .error-message {
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  margin-top: 20px;
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #94a3b8;
+.message.error, .error-message {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
 }
 
-/* Botões e Links */
-.btn-submit {
-    width: auto;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.7rem 1.5rem;
-    background-color: #2563eb;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 0.5rem;
+body.dark .message.error {
+  background-color: #450a0a;
+  color: #fca5a5;
+  border-color: #7f1d1d;
 }
 
-.btn-submit:hover {
-    background-color: #1d4ed8;
-}
-
-.btn-back {
-    display: inline-block;
-    margin-top: 1.25rem;
-    color: #2563eb;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.btn-back:hover {
-    color: #1d4ed8;
-    text-decoration: underline;
+.hidden {
+  display: none;
 }

@@ -1,47 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registo – DevPortfolio</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registo — DevPortfolio</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <a href="/" class="logo">DevPortfolio</a>
-            <div class="nav-links">
-                <a href="/">Início</a>
-                <a href="/login">Login</a>
-                <a href="/register">Registo</a>
-            </div>
-        </nav>
-    </header>
 
-    <main class="form-container">
-        <div class="form-card">
-            <h2>Criar Conta</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="name">Nome Completo *</label>
-                    <input type="text" id="name" required placeholder="Martim Costa">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" required placeholder="martim@email.com">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password *</label>
-                    <input type="password" id="password" required placeholder="••••••••">
-                </div>
-                <div class="form-group">
-                    <label for="bio">Pequena Biografia (Opcional)</label>
-                    <textarea id="bio" placeholder="Desenvolvedor Web Full-Stack..."></textarea>
-                </div>
-                <button type="submit" class="btn-submit">Criar Conta</button>
-            </form>
-            <a href="/login" class="btn-back">← Já tem conta? Faz Login aqui</a>
-        </div>
-    </main>
+  <header>
+    <h1>DevPortfolio</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="login.html">Login</a>
+      
+      <button onclick="document.body.classList.toggle('dark')"> 🌓</button>
+    </nav>
+  </header>
+
+  <main class="login-container">
+    <h2>Criar Conta</h2>
+    
+    <div id="registerMessage" class="message hidden"></div>
+
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="name">Nome Completo</label>
+        <input type="text" id="name" required placeholder="Martim Costa">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required placeholder="martim@email.com">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required minlength="5" placeholder="•••••••">
+      </div>
+
+      <div class="form-group">
+        <label for="bio">Pequena Biografia (Opcional)</label>
+        <textarea id="bio" rows="3" placeholder="Desenvolvedor Web Full-Stack..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary">Criar Conta</button>
+    </form>
+    
+    <p style="margin-top: 15px; text-align: center;">
+      Já tens conta? <a href="login.html">Faz Login aqui</a>
+    </p>
+  </main>
+
+  <script src="js/theme.js"></script>
+  <script src="js/api.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  // Apanha o formulário na página
+  const form = document.querySelector('form');
+
+  form.addEventListener('submit', async (e) => {
+    // 1. IMPEDE a página de recarregar
+    e.preventDefault();
+
+    // 2. Apanha os valores dos inputs pelo 'name' ou 'id'
+    const name = form.querySelector('[name="name"]')?.value || document.getElementById('name')?.value || '';
+    const email = form.querySelector('[name="email"]')?.value || document.getElementById('email')?.value;
+    const password = form.querySelector('[name="password"]')?.value || document.getElementById('password')?.value;
+    const bio = form.querySelector('[name="bio"]')?.value || document.getElementById('bio')?.value || '';
+
+    try {
+      // 3. Envia os dados via fetch para o backend
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password, bio })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        alert('Conta criada com sucesso!');
+        window.location.href = '/login.html'; // Redireciona para o login
+      } else {
+        alert(data.message || 'Erro ao criar conta.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Erro ao ligar ao servidor.');
+    }
+  });
+</script>
+
 </body>
 </html>
