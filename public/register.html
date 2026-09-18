@@ -18,4 +18,49 @@
     </form>
     <p class="auth-footer">Já tem conta? <a href="/login.html">Iniciar Sessão</a></p>
   </div>
-</main>
+</main><!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registo - DevPortfolio</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="/" class="logo">DevPortfolio</a>
+      <div class="nav-links">
+        <a href="/">Início</a>
+        <a href="/login.html">Login</a>
+        <a href="/register.html">Registo</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="form-container">
+    <div class="form-card">
+      <h2>Criar Conta</h2>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="name">Nome *</label>
+          <input type="text" id="name" required placeholder="Ex: Martim Costa">
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" required placeholder="Ex: email@exemplo.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Palavra-passe *</label>
+          <input type="password" id="password" required placeholder="Sua palavra-passe">
+        </div>
+        <button type="submit" class="btn-submit">Registar</button>
+      </form>
+      <a href="/login.html" class="btn-back">← Já tem conta? Iniciar Sessão</a>
+    </div>
+  </main>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

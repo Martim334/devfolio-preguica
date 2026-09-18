@@ -1,17 +1,42 @@
-<main class="auth-container">
-  <div class="auth-card">
-    <h2>Iniciar Sessão</h2>
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="email">E-mail *</label>
-        <input type="email" id="email" required placeholder="seuemail@exemplo.com">
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sessão - DevPortfolio</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="/" class="logo">DevPortfolio</a>
+      <div class="nav-links">
+        <a href="/">Início</a>
+        <a href="/login.html">Login</a>
+        <a href="/register.html">Registo</a>
       </div>
-      <div class="form-group">
-        <label for="password">Palavra-passe *</label>
-        <input type="password" id="password" required placeholder="••••••••">
-      </div>
-      <button type="submit" class="btn-primary">Entrar</button>
-    </form>
-    <p class="auth-footer">Ainda não tem conta? <a href="/register.html">Registar</a></p>
-  </div>
-</main>
+    </nav>
+  </header>
+
+  <main class="form-container">
+    <div class="form-card">
+      <h2>Iniciar Sessão</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" required placeholder="Ex: email@exemplo.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Palavra-passe *</label>
+          <input type="password" id="password" required placeholder="Sua palavra-passe">
+        </div>
+        <button type="submit" class="btn-submit">Entrar</button>
+      </form>
+      <a href="/register.html" class="btn-back">← Criar uma conta</a>
+    </div>
+  </main>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
