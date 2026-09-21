@@ -4,6 +4,26 @@
   margin: 0;
   padding: 0;
 }
+/* Estilos Base (Telemóvel) */
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tablet (ecrãs a partir de 768px) */
+@media (min-width: 768px) {
+  .menu {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* Computador / Desktop (ecrãs a partir de 1024px) */
+@media (min-width: 1024px) {
+  .container {
+    padding: 40px;
+  }
+}
 
 :root {
   --bg-color: #f8fafc;
@@ -55,6 +75,11 @@ header h1, header .logo {
   font-weight: 800;
   color: var(--primary);
   letter-spacing: -0.5px;
+}
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Menu de Navegação */
